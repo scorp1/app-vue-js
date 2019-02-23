@@ -17,5 +17,5 @@ mongoose.connect('mongodb://scorp:9058393913@cluster0-shard-00-00-gvgkp.azure.mo
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
-app.use('api/records', require('./routes/record'));
+app.use('/api/records', require('./routes/record'));
 app.use('/', express.static(path.join(__dirname, '../dist')))
