@@ -1,11 +1,13 @@
+import Conn from './data/connect.js';
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
 
-let app = express();
-app.set('port', 3000);
 
+let app = express();
+Conn();
+app.set('port', 3000);
 app.listen(app.get('port'), () => {
     console.log(`OK Server is running localhost : ${app.get('port')}`);
 });
@@ -18,4 +20,4 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use('/api/records', require('./routes/record'));
-app.use('/', express.static(path.join(__dirname, '../dist')))
+app.use('/', express.static(path.join(__dirname, '../dist')));
