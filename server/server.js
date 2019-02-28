@@ -1,12 +1,9 @@
-import Conn from './data/connect.js';
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
 
-
 let app = express();
-Conn();
 app.set('port', 3000);
 app.listen(app.get('port'), () => {
     console.log(`OK Server is running localhost : ${app.get('port')}`);

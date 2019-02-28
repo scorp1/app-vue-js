@@ -4,6 +4,11 @@
       <div class="logo">
         <img src="./assets/logo.png" alt="Logo vue" class="logo-vue">
       </div>
+      <div class="to-data">
+        <router-link to="/data">
+          <md-button class="md-raised md-primary">Go to data</md-button>
+        </router-link>
+      </div>
     </header>
     <main>
       <router-view/>
@@ -33,5 +38,10 @@
   .logo {
     width: 70px;
     margin: 0 auto;
+  }
+  .to-data {
+    position: absolute;
+    top: 15px;
+    right: 10px;
   }
 </style>
