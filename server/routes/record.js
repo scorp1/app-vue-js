@@ -27,8 +27,8 @@ router.post('/', async (req, res) => {
         port: 587,
         secure: false,
         auth: {
-            user: 'your mailLogin',
-            pass: 'your mailPass'
+            user: '*****',
+            pass: '*****'
         }
     });
 
