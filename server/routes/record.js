@@ -8,7 +8,8 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    res.json(await Record.findById(req.param.id));
+    res.json(await Record.findById(req.params.id));
+
 });
 router.post('/', async (req, res) => {
     const record = new Record(req.body);
