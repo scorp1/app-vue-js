@@ -57,7 +57,7 @@ export default {
                     gender: this.gender
                 }
             });
-            this.$router.push('thanks');
+            this.$router.push({ name: 'thanks', params: { id: 'entered'} });
         }
     }
 }

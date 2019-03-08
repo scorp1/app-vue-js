@@ -6,7 +6,7 @@
       </md-card-media>
       <md-card-content>
         <p class="thanks-content">
-          Your data successfully entered into the database!
+          Your data successfully {{ string }} into the database!
         </p>
       </md-card-content>
       <md-card-actions>
@@ -17,6 +17,17 @@
     </md-card>
   </div>
 </template>
+<script>
+
+  export default {
+    data: () => ({
+      string: []
+    }),
+    async created() {
+      this.string = this.$route.params.id;
+    },
+  }
+</script>
 <style>
   .thanks {
     width: 35px;

@@ -22,6 +22,10 @@
                         <md-table-cell md-numeric>{{ user.email }}</md-table-cell>
                         <md-table-cell md-numeric>{{ user.address }}</md-table-cell>
                         <md-table-cell md-numeric>{{ user.gender }}</md-table-cell>
+                        <router-link :to="{ name: 'update', params: { id: user._id} }">
+                            <md-button>edit user</md-button>
+                        </router-link>
+                        <md-button class="md-raised md-primary" @click="deleteUser(user._id)">delete user</md-button>
                     </md-table-row>
                 </md-table-body>
             </md-table>
@@ -41,6 +45,15 @@
             let response = await axios.get('http://localhost:3000/api/records/' + id);
             this.user = response.data;
         },
+        methods: {
+            async deleteUser(id) {
+                console.log(id);
+                let response = await axios.delete('http://localhost:3000/api/records/' + id);
+                if(response.status === 200){
+                    this.$router.push({ name: 'thanks', params: { id: 'deleted'} });
+                }
+            }
+        }
     }
 </script>
 

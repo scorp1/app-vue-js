@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     res.json(await Record.findById(req.params.id));
-
 });
 router.post('/', async (req, res) => {
     const record = new Record(req.body);
@@ -56,7 +55,7 @@ router.put('/:id', async (req, res) => {
     res.json({state: 'updated'})
 });
 router.delete('/:id', async (req, res) => {
-    await Record.findByIbAndDelete(req.params.id);
+    await Record.findByIdAndDelete(req.params.id);
     res.json({state: 'deleted'})
 });
 
