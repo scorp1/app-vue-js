@@ -57,7 +57,7 @@
             async update(){
                 let id = this.$route.params.id;
                 let response = await axios.put('http://localhost:3000/api/records/' + id, {name: this.name, email: this.email, address: this.address, gender: this.gender});
-                if(response === 200){
+                if (response.status === 200) {
                     this.$router.push({ name: 'thanks', params: { id: 'updated'} });
                 }
             },

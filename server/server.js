@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
+const connect = require('./connect.js');
 
 let app = express();
 app.set('port', 3000);
@@ -9,7 +10,7 @@ app.listen(app.get('port'), () => {
     console.log(`OK Server is running localhost : ${app.get('port')}`);
 });
 
-mongoose.connect('mongodb://scorp:9058393913@cluster0-shard-00-00-gvgkp.azure.mongodb.net:27017,cluster0-shard-00-01-gvgkp.azure.mongodb.net:27017,cluster0-shard-00-02-gvgkp.azure.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', {useNewUrlParser: true})
+mongoose.connect(connect.getConnect(), {useNewUrlParser: true})
  .then(db => console.log('OK DB is connect'))
  .catch(err => console.log('Error!'));
 
