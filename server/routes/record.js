@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     `;
     let transporter = nodemailer.createTransport({
         host: "smtp.yandex.ru",
-        port: 465,
+        port: 587,
         secure: false,
         auth: {
             user: Connect.getLogin(),
@@ -35,9 +35,9 @@ router.post('/', async (req, res) => {
     });
 
     let mailOptions = {
-        from: 'vuejs-vladimir@yandex.ru',
+        from: Connect.getLogin(),
         to: 'cgartscorp@gmail.com',
-        subject: `nice-course | New message`,
+        subject: `vue-app | New user entered`,
         text: req.body.name,
         html: output
     };

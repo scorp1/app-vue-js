@@ -9,7 +9,7 @@
         <div class="list-wrapper" v-if="!isError">
             <md-table>
                 <md-table-header>
-                    <md-table-row>
+                    <md-table-row class="table-row">
                         <md-table-head md-numeric>Name</md-table-head>
                         <md-table-head md-numeric>Email</md-table-head>
                         <md-table-head md-numeric>Address</md-table-head>
@@ -23,7 +23,7 @@
                         <md-table-cell md-numeric>{{ dataUser.address }}</md-table-cell>
                         <md-table-cell md-numeric>{{ dataUser.gender }}</md-table-cell>
                         <router-link :to="{ name: 'user', params: { id: dataUser._id} }">
-                            <md-button>get user</md-button>
+                            <md-button class="md-raised md-primary">get user</md-button>
                         </router-link>
                     </md-table-row>
                 </md-table-body>
@@ -82,5 +82,8 @@ export default {
     }
     .error-view {
         text-align: center;
+    }
+    .md-table-head {
+        text-align: center !important;
     }
 </style>
