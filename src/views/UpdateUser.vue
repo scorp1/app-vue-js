@@ -1,7 +1,8 @@
 <template>
     <div class="home">
         <md-card id="card-home">
-            <form @submit.prevent="update" id="main-form">
+            <form @submit.prevent="update" id="main-form" novalidate="true">
+
                 <md-input-container class="form-control">
                     <label>Name</label>
                     <md-input v-model="name" id="name" type="text"/>
@@ -24,9 +25,21 @@
                     <md-radio v-model="gender" id="female" md-value="female" class="md-primary">Female</md-radio>
                 </div>
 
+                <div class="error-block" v-if="errors.length">
+                    <md-card class="md-warn">
+                        <h3>Correct the errors</h3>
+                        <md-card-content>
+                            <ul>
+                                <li class="error-view" v-for="error in errors">{{ error }}</li>
+                            </ul>
+                        </md-card-content>
+                    </md-card>
+                </div>
+
                 <div class="send-wrapper">
                     <md-button type="submit" class="md-raised md-primary" id="send">Update</md-button>
                 </div>
+
             </form>
         </md-card>
     </div>
@@ -39,6 +52,7 @@
         name: 'home',
         data: function() {
             return {
+                errors: [],
                 name: '',
                 email: '',
                 address: '',
@@ -56,11 +70,32 @@
         methods: {
             async update(){
                 let id = this.$route.params.id;
-                let response = await axios.put('http://localhost:3000/api/records/' + id, {name: this.name, email: this.email, address: this.address, gender: this.gender});
-                if (response.status === 200) {
-                    this.$router.push({ name: 'thanks', params: { id: 'updated'} });
+                console.log(this.validEmail(this.mail));
+                if (this.name && this.validEmail(this.email) && this.address) {
+                    let response = await axios.put('http://localhost:3000/api/records/' + id, {name: this.name, email: this.email, address: this.address, gender: this.gender});
+                    if (response.status === 200) {
+                        this.$router.push({ name: 'thanks', params: { id: 'updated'} });
+                    }
+                    console.log(response.status);
+                } else {
+                    this.errors = [];
+                    if (!this.name) {
+                        this.errors.push('Enter your name');
+                    }
+                    if (!this.email) {
+                        this.errors.push('Enter your email');
+                    } else if (!this.validEmail(this.email)) {
+                        this.errors.push('Enter correct email')
+                    }
+                    if (!this.address) {
+                        this.errors.push('Enter your address');
+                    }
                 }
             },
+            validEmail(email) {
+                let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            }
         }
     }
 </script>
@@ -109,6 +144,12 @@
     }
     #card-home {
         background-color: rgba(255, 255, 255, 0.6);
+    }
+    .error-block {
+        width: 100%;
+    }
+    .error-view {
+        text-align: center;
     }
 
 </style>

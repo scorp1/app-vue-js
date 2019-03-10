@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const Record = require('../models/Record');
+const Connect = require('../connect.js');
 
 router.get('/', async (req, res) => {
     res.json(await Record.find());
@@ -15,6 +16,7 @@ router.post('/', async (req, res) => {
     await record.save();
     const output = ` 
     <p> You have a new message from nice-app:</p>
+    <p>Entered new user to databases.</p>
     <ul>
         <li>name: ${req.body.name}</li>
         <li>email: ${req.body.email}</li>
@@ -23,18 +25,18 @@ router.post('/', async (req, res) => {
     </ul>
     `;
     let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
+        host: "smtp.yandex.ru",
+        port: 465,
         secure: false,
         auth: {
-            user: '*****',
-            pass: '*****'
+            user: Connect.getLogin(),
+            pass: Connect.getPass()
         }
     });
 
     let mailOptions = {
-        from: 'mailSource your mail',
-        to: 'mailTarget whom send',
+        from: 'vuejs-vladimir@yandex.ru',
+        to: 'cgartscorp@gmail.com',
         subject: `nice-course | New message`,
         text: req.body.name,
         html: output
